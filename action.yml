@@ -16,6 +16,11 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - run: computelabels.sh 
+    - run: |
+        whoami
+        pwd
+        ls -al 
+      shell: bash
+    - run: ./computelabels.sh 
       shell: bash
 
