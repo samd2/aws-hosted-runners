@@ -23,25 +23,24 @@ runs:
       shell: bash
       run: |
         set -e
-        echo "Input is ${{ inputs.self_hosted_runners_override }}"
         if [ "${{ inputs.self_hosted_runners_override }}" == "true" ]; then
             self_hosted_runners="true"
-            echo "Override is true"
+            echo "self_hosted_runners_override is true"
         elif [ "${{ inputs.self_hosted_runners_override }}" == "false" ]; then
             self_hosted_runners="false"
-            echo "Override is false"
+            echo "self_hosted_runners_override is false"
         else
             checkweb=$(curl --connect-timeout 3 ${{ inputs.self_hosted_runners_url }}) || true
             if [ "$checkweb" == "true" ]; then
                 self_hosted_runners="true"
-                echo "Web sets the value to true"
+                echo "From the Web setting, self hosted runners are enabled."
             elif [ "$checkweb" == "false" ]; then
                 self_hosted_runners="false"
-                echo "Web sets the value to false"
+                echo "From the Web setting, self hosted runners are disabled."
             else
                 # the default
                 self_hosted_runners="false"
-                echo "The default value is set to false"
+                echo "Did not connect to the web switch. The default value for self-hosted runners is set to false."
             fi
         fi
 
@@ -95,6 +94,7 @@ runs:
 
         labelmatrix=$( echo "$labelmatrix" | sed 's/,\s*$//' )
         labelmatrix="$labelmatrix }"
+        echo "The labelmatrix is $labelmatrix"
         echo "labelmatrix=$labelmatrix" >> $GITHUB_OUTPUT
 
 
