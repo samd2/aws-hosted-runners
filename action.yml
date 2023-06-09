@@ -13,15 +13,14 @@ inputs:
 outputs:
   labelmatrix:
     description: "A dictionary of values to update the runs-on variable in a workflow."
+    value: ${{ steps.computelabels.outputs.labelmatrix }}
+
 runs:
   using: "composite"
   steps:
-    - shell: bash
-      run: |
-        whoami
-        pwd
-        ls -al 
-    - shell: bash
+    - name: Compute labels
+      id: computelabels
+      shell: bash
       run: |
         set -ex
         echo "Input is ${{ inputs.self_hosted_runners_override }}"
