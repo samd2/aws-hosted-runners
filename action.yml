@@ -1,0 +1,21 @@
+name: 'aws-hosted-runners'
+description: 'Github Action to update workflow labels, directing jobs to self-hosted runners'
+author: 'sdarwin'
+
+inputs:
+  self_hosted_runners_override:
+    description: "Should self-hosted runners _always_ be used? Enter a text string: 'true' or 'false'"
+    required: false
+  self_hosted_runners_url:
+    description: "Webpage which returns the directive if self-hosted runners ought to be used."
+    default: "https://gha.cpp.al/switch"
+    required: false
+outputs:
+  labelmatrix:
+    description: "A dictionary of values to update the runs-on variable in a workflow."
+runs:
+  using: "composite"
+  steps:
+    - run: computelabels.sh 
+      shell: bash
+
