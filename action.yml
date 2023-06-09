@@ -21,6 +21,6 @@ runs:
         pwd
         ls -al 
       shell: bash
-    - run: ./computelabels.sh 
+    - run: ${{ github.action_path }}/computelabels.sh 
       shell: bash
 
