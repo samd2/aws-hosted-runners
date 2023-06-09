@@ -24,18 +24,18 @@ runs:
       run: |
         set -e
         echo "Input is ${{ inputs.self_hosted_runners_override }}"
-        if [ ${{ inputs.self_hosted_runners_override }} == "true" ]; then
+        if [ "${{ inputs.self_hosted_runners_override }}" == "true" ]; then
             self_hosted_runners="true"
             echo "Override is true"
-        elif [ ${{ inputs.self_hosted_runners_override }} == "false" ]; then
+        elif [ "${{ inputs.self_hosted_runners_override }}" == "false" ]; then
             self_hosted_runners="false"
             echo "Override is false"
         else
             checkweb=$(curl --connect-timeout 3 ${{ inputs.self_hosted_runners_url }}) || true
-            if [ $checkweb == "true" ]; then
+            if [ "$checkweb" == "true" ]; then
                 self_hosted_runners="true"
                 echo "Web sets the value to true"
-            elif [ $checkweb == "false" ]; then
+            elif [ "$checkweb" == "false" ]; then
                 self_hosted_runners="false"
                 echo "Web sets the value to false"
             else
