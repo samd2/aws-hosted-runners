@@ -10,6 +10,10 @@ inputs:
     description: "Webpage which returns the directive if self-hosted runners ought to be used."
     default: "https://gha.cpp.al/switch"
     required: false
+  debug:
+    description: "Enable debug logging. Enter a text string: 'true' or 'false'"
+    default: 'false'
+    required: false
 outputs:
   labelmatrix:
     description: "A dictionary of values to update the runs-on variable in a workflow."
@@ -101,7 +105,9 @@ runs:
 
         labelmatrix=$( echo "$labelmatrix" | sed 's/,\s*$//' )
         labelmatrix="$labelmatrix }"
-        echo "The labelmatrix is $labelmatrix"
+        if [ "${{ inputs.debug }}" == "true" ]; then
+            echo "The labelmatrix is $labelmatrix"
+        fi
         echo "labelmatrix=$labelmatrix" >> $GITHUB_OUTPUT
 
 
