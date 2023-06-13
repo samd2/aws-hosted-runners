@@ -37,10 +37,10 @@ runs:
             checkweb=$(curl --connect-timeout 3 ${{ inputs.self_hosted_runners_url }}) || true
             if [ "$checkweb" == "true" ]; then
                 self_hosted_runners="true"
-                echo "From the Web setting, self hosted runners are enabled."
+                echo "From the Web setting, self-hosted runners are enabled."
             elif [ "$checkweb" == "false" ]; then
                 self_hosted_runners="false"
-                echo "From the Web setting, self hosted runners are disabled."
+                echo "From the Web setting, self-hosted runners are disabled."
             else
                 # the default
                 self_hosted_runners="false"
