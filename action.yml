@@ -88,6 +88,18 @@ runs:
             labelmatrix="$labelmatrix \"${image}\": [ \"${image}\" ], "
             labelmatrix="$labelmatrix \"${image}-no-aws\": [ \"${image}\" ], "
           done
+
+          # A few custom images:
+          image="windows-2019-msvc-14.1"
+          basicimage="windows-2019"
+          labelmatrix="$labelmatrix \"${image}\": [ \"self-hosted\", \"windows\", \"x64\", \"${image}-aws\" ], "
+          labelmatrix="$labelmatrix \"${image}-no-aws\": [ \"${basicimage}\" ], 
+
+          image="windows-2019-msvc-14.0"
+          basicimage="windows-2019"
+          labelmatrix="$labelmatrix \"${image}\": [ \"self-hosted\", \"windows\", \"x64\", \"${image}-aws\" ], "
+          labelmatrix="$labelmatrix \"${image}-no-aws\": [ \"${basicimage}\" ], 
+
         else
           for image in ${supported_images_linux}; do
             labelmatrix="$labelmatrix \"${image}\": [ \"${image}\" ], "
@@ -101,6 +113,17 @@ runs:
             labelmatrix="$labelmatrix \"${image}\": [ \"${image}\" ], "
             labelmatrix="$labelmatrix \"${image}-no-aws\": [ \"${image}\" ], "
           done
+
+          # A few custom images:
+          image="windows-2019-msvc-14.1"
+          basicimage="windows-2019"
+          labelmatrix="$labelmatrix \"${image}\": [ \"${basicimage}\" ], "
+          labelmatrix="$labelmatrix \"${image}-no-aws\": [ \"${basicimage}\" ], "
+
+          image="windows-2019-msvc-14.0"
+          basicimage="windows-2019"
+          labelmatrix="$labelmatrix \"${image}\": [ \"${basicimage}\" ], "
+          labelmatrix="$labelmatrix \"${image}-no-aws\": [ \"${basicimage}\" ], "
         fi
 
         labelmatrix=$( echo "$labelmatrix" | sed 's/,\s*$//' )
@@ -109,6 +132,4 @@ runs:
             echo "The labelmatrix is $labelmatrix"
         fi
         echo "labelmatrix=$labelmatrix" >> $GITHUB_OUTPUT
-
-
 
