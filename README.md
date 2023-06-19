@@ -31,6 +31,13 @@ jobs:
         #   debug: 'true'
 ```
 
+- Set the `runs-on` configuration in all jobs:
+
+```
+needs: [runner-selection]
+runs-on: ${{ fromJSON(needs.runner-selection.outputs.labelmatrix)[matrix.os] }}
+```
+
 ## Options
 
 Usually not required.  
