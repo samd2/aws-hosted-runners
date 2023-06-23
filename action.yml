@@ -78,7 +78,7 @@ runs:
         labelmatrix="{ "
         if [ ${self_hosted_runners} == "true" ]; then
           for image in ${supported_images_linux}; do 
-            labelmatrix="$labelmatrix \"${image}\": [ \"self-hosted\", \"linux\", \"x64\", \"${image}-aws\" ], "
+            labelmatrix="$labelmatrix \"${image}\": [ \"self-hosted\", \"linux\", \"arm64\", \"${image}-aws\" ], "
             labelmatrix="$labelmatrix \"${image}-no-aws\": [ \"${image}\" ], "
           done
           for image in ${supported_images_windows}; do 
