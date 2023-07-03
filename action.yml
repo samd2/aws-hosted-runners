@@ -34,15 +34,15 @@ runs:
         # if [ "${{ inputs.debug }}" == "true" ]; then
         #    set -x
         # fi
-        if [ "${{ inputs.self_hosted_runners_override }}" == "true" ]; then
+        if [[ ! "  ${{ inputs.owner_list }} " =~ .*\ ${{ github.repository_owner }}\ .* ]]; then
+            self_hosted_runners="false"
+            echo "The repo organization or owner doesn't match the owner_list setting. Disabling self-hosted runners."
+        elif [ "${{ inputs.self_hosted_runners_override }}" == "true" ]; then
             self_hosted_runners="true"
             echo "self_hosted_runners_override is true"
         elif [ "${{ inputs.self_hosted_runners_override }}" == "false" ]; then
             self_hosted_runners="false"
             echo "self_hosted_runners_override is false"
-        elif [[ ! "  ${{ inputs.owner_list }} " =~ .*\ ${{ github.repository_owner }}\ .* ]]; then
-            self_hosted_runners="false"
-            echo "The repo organization or owner doesn't match the owner_list setting. Disabling self-hosted runners."
         else
             checkweb=$(curl --connect-timeout 3 ${{ inputs.self_hosted_runners_url }}) || true
             if [ "$checkweb" == "true" ]; then
